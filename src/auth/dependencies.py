@@ -1,37 +1,29 @@
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
-
 from pydantic import ValidationError
 from sqlalchemy.engine import Result
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
-
-from database.database import get_session
-from .constants import RoleTypes
-from .models import Users
-
 from passlib.context import CryptContext
-
+from database.database import get_session
 from datetime import timedelta
 from typing import Union, Any
 from jose import jwt
-
-from decouple import config
-
+from database import config
+from .constants import RoleTypes
+from .models import Users
 from . import timeutils
 
-
-ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 * 365  # 365 days
-REFRESH_TOKEN_EXPIRE_MINUTES = 60 * 24 * 365  # 365 days
+ACCESS_TOKEN_EXPIRE_MINUTES = config.ACCESS_TOKEN_EXPIRE_MINUTES
+REFRESH_TOKEN_EXPIRE_MINUTES = config.REFRESH_TOKEN_EXPIRE_MINUTES
 ALGORITHM = "HS256"
-JWT_SECRET_KEY = config('JWT_SECRET_KEY')  # should be kept secret
-JWT_REFRESH_SECRET_KEY = config(
-    'JWT_REFRESH_SECRET_KEY')  # should be kept secret
+JWT_SECRET_KEY = config.JWT_SECRET_KEY  # should be kept secret
+JWT_REFRESH_SECRET_KEY = config.JWT_REFRESH_SECRET_KEY  # should be kept secret
 
 password_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 reuseable_oauth = OAuth2PasswordBearer(
-    tokenUrl="/api/login",
+    tokenUrl="/login",
     scheme_name="JWT"
 )
 
@@ -108,7 +100,6 @@ def create_refresh_token(subject: Union[str, Any],
     return encoded_jwt
 
 
-
 async def get_only_superadmin(user: Users = Depends(get_current_user)):
     if user.role_id != RoleTypes.Admin.value:
         raise HTTPException(
@@ -117,33 +108,3 @@ async def get_only_superadmin(user: Users = Depends(get_current_user)):
             headers={"WWW-Authenticate": "Bearer"},
         )
     return user
-
-
-# async def get_only_customer(user: Users = Depends(get_current_user)):
-#     if user.role_id != RoleTypes.Customer.value:
-#         raise HTTPException(
-#             status_code=status.HTTP_401_UNAUTHORIZED,
-#             detail="Only customer can do this",
-#             headers={"WWW-Authenticate": "Bearer"},
-#         )
-#     return user
-#
-#
-# async def get_only_transporter(user: Users = Depends(get_current_user)):
-#     if user.role_id != RoleTypes.Transporter.value:
-#         raise HTTPException(
-#             status_code=status.HTTP_401_UNAUTHORIZED,
-#             detail="Only transporter can do this",
-#             headers={"WWW-Authenticate": "Bearer"},
-#         )
-#     return user
-#
-#
-# async def get_only_courier(user: Users = Depends(get_current_user)):
-#     if user.role_id != RoleTypes.Courier.value:
-#         raise HTTPException(
-#             status_code=status.HTTP_401_UNAUTHORIZED,
-#             detail="Only courier can do this",
-#             headers={"WWW-Authenticate": "Bearer"},
-#         )
-#     return user

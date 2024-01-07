@@ -14,5 +14,4 @@ def fromtimestamp(timestamp: float):
     return datetime.fromtimestamp(timestamp)
 
 
-def astimezone(anything: datetime):
-    return anything.astimezone()
+

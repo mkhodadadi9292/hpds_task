@@ -162,3 +162,5 @@ test.db
 tmp
 req.txt
 old_main.py
+/vvenv/
+memory_usage.db

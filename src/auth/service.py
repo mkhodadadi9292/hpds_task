@@ -70,7 +70,7 @@ def create_refresh_token(subject: Union[str, Any],
 
 
 reuseable_oauth = OAuth2PasswordBearer(
-    tokenUrl="/api/login",
+    tokenUrl="/login",
     scheme_name="JWT"
 )
 
