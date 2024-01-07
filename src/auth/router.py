@@ -14,7 +14,7 @@ from database.database import get_session, async_session_maker
 from .models import Users
 from .schemas import TokenSchema, Body, UserInfo
 from .constants import RoleTypes
-from .service import get_hashed_password
+from .dependencies import get_hashed_password
 
 router = APIRouter(tags=["Authentication"])
 

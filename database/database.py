@@ -26,7 +26,7 @@ async def create_admin_user():
     # Username and password can be changed by the config file.
     # Admin can only start memory manager.
     from src.auth.models import Users
-    from src.auth.service import get_hashed_password
+    from src.auth.dependencies import get_hashed_password
     from src.auth.schemas import RoleTypes
 
     async with async_session_maker() as session:

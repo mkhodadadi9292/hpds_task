@@ -104,7 +104,7 @@ async def get_only_superadmin(user: Users = Depends(get_current_user)):
     if user.role_id != RoleTypes.Admin.value:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Only superadmin can do this",
+            detail="Only superadmin can do this action",
             headers={"WWW-Authenticate": "Bearer"},
         )
     return user

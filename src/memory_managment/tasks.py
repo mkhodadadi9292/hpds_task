@@ -11,6 +11,7 @@ async def add_memory_info(r=None):
     # Getting all memory using os.popen()
     total_memory, used_memory, free_memory = map(
         int, os.popen('free -t -m').readlines()[-1].split()[1:])
+
     async with async_session_maker() as session:
         memory_info = Memory(total=total_memory,
                              used=used_memory,

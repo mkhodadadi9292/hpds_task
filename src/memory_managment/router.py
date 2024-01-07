@@ -24,5 +24,5 @@ async def start_service(background_tasks: BackgroundTasks, user: Users = Depends
 async def get_last_memory(limit: int, user: Users = Depends(get_current_user),
                           session: AsyncSession = Depends(get_session)):
     query_set = select(Memory).order_by(desc("id")).limit(limit)
-    results: List[Memory] = await session.execute(query_set)
-    return results
+    results = await session.execute(query_set)
+    return results.scalars().fetchall()
