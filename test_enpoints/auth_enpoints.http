@@ -1,0 +1,15 @@
+
+POST http://127.0.0.1:8000/register
+accept: application/json
+Content-Type: application/json
+
+{
+  "first_name": "mohammad",
+  "last_name": "khodadadi",
+  "phone_number": "132",
+  "username": "mohammad",
+  "password": "12345"
+}
+
+###
+

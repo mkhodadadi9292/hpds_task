@@ -23,11 +23,11 @@ async def create_user(body:Body, session: AsyncSession = Depends(get_session)):
                  last_name=body.last_name,
                  phone_number=body.phone_number,
                  username=body.username,
-                 role=RoleTypes.Regular.value,
+                 role_id=RoleTypes.Regular.value,
                  password_hash=get_hashed_password(body.password))
     session.add(user)
     await session.commit()
-    return SimpleResponse
+    return SimpleResponse(ok=True)
 @router.post('/login',
              summary="Create access and refresh tokens for all users",
              response_model=TokenSchema)
