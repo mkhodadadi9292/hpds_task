@@ -2,6 +2,8 @@
 - Activate virtualenv
 - Install all python requirements by `pip install -r requirements.txt`
 - Execute `python -m uvicorn src.main:app --host 0.0.0.0 --reload` to run web service.
+- All configuration variables are available in the config file in database folder.(You must set 
+- `JWT_SECRET_KEY` and `JWT_REFRESH_SECRET_KEY`)
 
 # All functions which have been performed in the system
 - Add start service (to fetch and insert all memory information from the server) at the specific time interval.

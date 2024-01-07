@@ -10,3 +10,5 @@ JWT_SECRET_KEY = os.environ.get("JWT_SECRET_KEY", DEFAULT_SECRET_KEY)
 ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 * 365  # 365 days
 REFRESH_TOKEN_EXPIRE_MINUTES = 60 * 24 * 365  # 365 days
 ALGORITHM = "HS256"
+################### SERVICE #################
+INTERVAL = 60  # 60 seconds
