@@ -2,8 +2,6 @@ from datetime import datetime, time, date
 from typing import Any, List, Optional
 from pydantic import BaseModel, Field, field_validator, Json
 from .constants import RoleTypes
-from enum import Enum
-from ..user.constants import UserStatus
 
 
 class TokenSchema(BaseModel):
@@ -54,7 +52,6 @@ class UserInfo(BaseModel):
     phone_number: str
     email: str
     username: str
-    status: UserStatus
     created_at: datetime
     role_id: int
 

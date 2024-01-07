@@ -11,13 +11,13 @@ from .dependencies import (
     verify_password,
 )
 from database.database import get_session
-from ..user.models import Users
+from .models import Users
 from .schemas import TokenSchema, SimpleResponse, Body
 from .constants import RoleTypes
 from .service import get_hashed_password
 router = APIRouter(tags=["Authentication"])
 
-@router.post('/register', summary= "create a new User", response_model=SimpleResponse):
+@router.post('/register', summary= "create a new User", response_model=SimpleResponse)
 async def create_user(body:Body, session: AsyncSession = Depends(get_session)):
     user = Users(first_name=body.first_name,
                  last_name=body.last_name,
@@ -25,7 +25,9 @@ async def create_user(body:Body, session: AsyncSession = Depends(get_session)):
                  username=body.username,
                  role=RoleTypes.Regular.value,
                  password_hash=get_hashed_password(body.password))
-
+    session.add(user)
+    await session.commit()
+    return SimpleResponse
 @router.post('/login',
              summary="Create access and refresh tokens for all users",
              response_model=TokenSchema)

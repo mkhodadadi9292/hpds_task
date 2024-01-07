@@ -8,7 +8,7 @@ from sqlalchemy.future import select
 
 from database.database import get_session
 from .constants import RoleTypes
-from ..user.models import Users
+from .models import Users
 
 from passlib.context import CryptContext
 

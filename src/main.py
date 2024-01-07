@@ -1,6 +1,6 @@
 from fastapi.routing import APIRoute
 from fastapi import FastAPI, APIRouter
-from database.database import create_all
+from database.database import create_all, add_default_roles
 # from src.app1 import apps as app1
 # from src.app2 import apps as app2
 # from src.user import router as user_app
@@ -22,6 +22,7 @@ app.include_router(auth_app.router)
 @app.on_event("startup")
 async def startup():
     await create_all()
+    await add_default_roles()
 
 @app.on_event("shutdown")
 async def shutdown():
