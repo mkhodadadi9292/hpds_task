@@ -1,7 +1,7 @@
 ## Installation
 - Activate virtualenv
 - Install all python requirements by `pip install -r requirements.txt`
-- Execute `python -m uvicorn src.main:app --reload` to run web service.
+- Execute `python -m uvicorn src.main:app --host 0.0.0.0 --reload` to run web service.
 
 # All functions which have been performed in the system
 - Add start service (to fetch and insert all memory information from the server) at the specific time interval.
