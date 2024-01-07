@@ -21,7 +21,7 @@ async def start_service(background_tasks: BackgroundTasks, user: Users = Depends
 
 @router.get("/memory/{limit}", description="Get last memory usage records from the database based on the given limit",
             response_model=List[MemorySchema])
-async def get_last_memory(limit: int, user: Users = Depends(get_current_user),
+async def get_latest_memory_info(limit: int, user: Users = Depends(get_current_user),
                           session: AsyncSession = Depends(get_session)):
     query_set = select(Memory).order_by(desc("id")).limit(limit)
     results = await session.execute(query_set)

@@ -10,3 +10,5 @@
 - Add Authentication endpoints (user registration, login) based on jwt.
 - Add role types (Admin, Regular) as authorization. (only Admin can start service `/start_service/)
 - Add endpoint for fetching latest records from Memory models.
+- Service startup solution is base on `from fastapi_utilities import repeat_every` and 
+`from fastapi import BackgroundTasks`
