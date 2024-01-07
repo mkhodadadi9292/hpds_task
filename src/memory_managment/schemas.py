@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
 
-class MemoryModel(BaseModel):
+class MemorySchema(BaseModel):
     total: int
     free: int
     used: int

@@ -17,10 +17,6 @@ class Body(BaseModel):
     password: str
 
 
-
-
-
-
 class UserInfo(BaseModel):
     first_name: str
     last_name: str

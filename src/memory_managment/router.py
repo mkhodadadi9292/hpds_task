@@ -5,7 +5,7 @@ from sqlalchemy.future import select
 from sqlalchemy import desc
 from database.database import get_session
 from .models import Memory
-from .schemas import MemoryModel
+from .schemas import MemorySchema
 from .tasks import add_memory_info
 from ..auth.dependencies import get_only_superadmin, get_current_user
 from ..auth.models import Users
@@ -20,7 +20,7 @@ async def start_service(background_tasks: BackgroundTasks, user: Users = Depends
 
 
 @router.get("/memory/{limit}", description="Get last memory usage records from the database based on the given limit",
-            response_model=List[MemoryModel])
+            response_model=List[MemorySchema])
 async def get_last_memory(limit: int, user: Users = Depends(get_current_user),
                           session: AsyncSession = Depends(get_session)):
     query_set = select(Memory).order_by(desc("id")).limit(limit)
